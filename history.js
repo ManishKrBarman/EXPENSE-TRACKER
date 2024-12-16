@@ -21,7 +21,7 @@ function displayTransactions(filteredTransactions = null) {
 
     // Sort transactions within each date by time
     for (const date in groupedByDate) {
-        groupedByDate[date].sort((a, b) => new Date(a.date) - new Date(b.date));
+        groupedByDate[date].sort((b, a) => new Date(a.date) - new Date(b.date));
     }
 
     // Display each day's transactions
