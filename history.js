@@ -25,7 +25,7 @@ function displayTransactions(filteredTransactions = null) {
     }
 
     // Display each day's transactions
-    Object.keys(groupedByDate).sort((a, b) => new Date(a) - new Date(b)).forEach(date => {
+    Object.keys(groupedByDate).sort((b, a) => new Date(a) - new Date(b)).forEach(date => {
         const dayCard = document.createElement('div');
         dayCard.classList.add('card');
         dayCard.innerHTML = `<h3>${date.split('-').reverse().join('-')}</h3>`;
