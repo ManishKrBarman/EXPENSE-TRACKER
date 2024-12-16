@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0a0a0a;
+}
+
+a {
+    text-decoration: none;
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+    text-align: center;
+    padding: 8px;
+    background: linear-gradient(45deg, #000000, #8ebbeb);
+    font-weight: bold;
+    color: #ffffff;
+}
+
+h6 {
+    color: #ffffff;
+    font-size: large;
+    font-family: 'Doto', sans-serif;
+}
+
+.container {
+    width: 100vw;
+}
+
+.nav {
+    background: #ffffff;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(255, 238, 0);
+    display: flex;
+    justify-content: space-between;
+}
+
+#history-list {
+    margin: 2px 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: auto;
+    gap: 10px;
+}
+
+.card {
+    /* background: radial-gradient(circle, #2cb5ff, #141f51); */
+    background: rgb(31, 31, 31);
+    color: wheat;
+    padding: 15px;
+    max-height: fit-content;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-item {
+    background: linear-gradient(45deg, #ffffff, #fffffdde);
+    border-left: 10px solid #28a745;
+    color: #28a745;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: grid;
+    font-weight: bold;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.transaction-item.negative {
+    border-left-color: #dc3545;
+    color: #dc3545;
+    background: linear-gradient(45deg, #ffffff, #fffffdde);
+}
+
+.transaction-item span {
+    font-size: 15px;
+    color: #000000;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.transaction-item strong {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Filter container styles */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.filter-container label {
+    margin-right: 10px;
+    color: #fff;
+}
+
+.filter-container input[type="date"] {
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+
+#filter-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#filter-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Toast styles */
+#toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    min-width: 250px;
+    padding: 15px 20px;
+    color: #fff;
+    background-color: #28a745;
+    /* Default to green for "add" */
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+    /* Hidden by default */
+    z-index: 100;
+    animation: slide-in 0.5s ease, fade-out 0.5s 2.5s ease forwards;
+}
+
+#toast.negative {
+    background-color: #dc3545;
+    /* Red for "remove" */
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #history-list {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .filter-container {
+        font-size: 0.1rem;
+    }
+}
