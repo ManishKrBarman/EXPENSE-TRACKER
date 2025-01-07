@@ -1,56 +1,46 @@
 const monthElement = document.getElementById('month');
+const balanceElement = document.getElementById('balance');
+const descriptionInput = document.getElementById('description');
+const amountInput = document.getElementById('amount');
+const dateTimeInput = document.getElementById('date-time');
+const categorySelect = document.getElementById('category');
+const addDepositButton = document.getElementById('add-deposit');
+const addWithdrawButton = document.getElementById('add-withdraw');
+
+
 const currentDate = new Date();
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 monthElement.textContent = `${currentDate.getDate()} ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
-const descriptionInput = document.getElementById('description');
-const amountInput = document.getElementById('amount');
-const dateTimeInput = document.getElementById('date-time');
-const addDepositButton = document.getElementById('add-deposit');
-const addWithdrawButton = document.getElementById('add-withdraw');
-const balanceElement = document.getElementById('balance');
 
-let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
-let warningAmount = 500;
-
-function sanitizeInput(input) {
-    const temp = document.createElement('div');
-    temp.textContent = input;
-    return temp.innerHTML;
-}
-
-function addTransaction(type) {
-    const description = sanitizeInput(descriptionInput.value.trim());
-    const amount = +amountInput.value;
-    const dateTime = dateTimeInput.value;
-
-    if (!description || isNaN(amount) || amount <= 0 || !dateTime) {
-        alert('Please enter a valid description, amount, and date.');
-        return;
-    }
-}
+let transactions = JSON.parse(localStorage.getItem('transactions')) || [];  // Get transactions from local storage
+let warningAmount = 500;  // Warning amount for low balance
 
 
-const toggleDarkMode = () => {
-    document.body.classList.toggle('dark-mode');
-}
-const darkModeToggle = document.createElement('button');
-// darkModeToggle.textContent = 'Dark Mode';
-darkModeToggle.classList.add('btn');
-darkModeToggle.style.marginBottom = '10px';
-darkModeToggle.addEventListener('click', toggleDarkMode);
-document.getElementById('head').append(darkModeToggle);
+addDepositButton.addEventListener('click', () => addTransaction('deposit'));
+addWithdrawButton.addEventListener('click', () => addTransaction('withdraw'));
 
+
+// Add transaction function
 function addTransaction(type) {
     const description = descriptionInput.value.trim();
     const amount = +amountInput.value;
     const dateTime = dateTimeInput.value;
 
-    if (!description || isNaN(amount) || amount <= 0 || !dateTime) {
-        alert('Please enter a valid description, amount, and date.');
+
+    if (!description) {
+        alert('Please enter a valid description.');
+        return;
+    } else if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid amount.');
+        return;
+    } else if (!dateTime) {
+        alert('Please enter a valid date and time.');
         return;
     }
 
+
+    // Create transaction object
     const transaction = {
         id: generateID(),
         description,
@@ -63,6 +53,7 @@ function addTransaction(type) {
     updateLocalStorage();
     updateBalance();
 
+
     // Show toast for deposit or withdraw
     const toastMessage = `₹${Math.abs(amount)} ${type === 'deposit' ? 'added' : 'deducted'} successfully`;
     showToast(toastMessage, type === 'deposit' ? 'positive' : 'negative');
@@ -72,16 +63,22 @@ function addTransaction(type) {
     dateTimeInput.value = '';
 }
 
+
+// Generate unique ID
 function generateID() {
     return Math.floor(Math.random() * 100000000);
 }
 
+
+// Update local storage function
 function updateLocalStorage() {
     localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
+
+// Update balance function
 function updateBalance() {
-    const balance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0).toFixed(2);
+    const balance = transactions.reduce((acc, transaction) => acc + transaction.amount, 0).toFixed(2); // Calculate total balance with [reduce] method
     balanceElement.textContent = `Current Balance: ₹${balance}`;
     balanceElement.style.backgroundColor = balance < warningAmount ? '#dc3545' : '#28a745';
 }
@@ -107,7 +104,15 @@ function showToast(message, type = 'positive') {
     }, 3000);
 }
 
-addDepositButton.addEventListener('click', () => addTransaction('deposit'));
-addWithdrawButton.addEventListener('click', () => addTransaction('withdraw'));
-
 updateBalance();
+
+// Dark Mode
+const toggleDarkMode = () => {
+    document.body.classList.toggle('dark-mode');
+}
+const darkModeToggle = document.createElement('button');
+// darkModeToggle.textContent = 'Dark Mode';
+darkModeToggle.classList.add('btn');
+darkModeToggle.style.marginBottom = '10px';
+darkModeToggle.addEventListener('click', toggleDarkMode);
+document.getElementById('head').append(darkModeToggle);
