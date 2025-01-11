@@ -66,6 +66,15 @@ function addTransaction(type) {
 }
 
 
+// Set transaction type [for form submission]
+function setTransactionType(type) {
+    const transactionTypeInput = document.getElementById('transaction-type');
+    transactionTypeInput.value = type; // Set Deposit or Withdraw
+    document.querySelector('.form-control').submit(); // Submit the form
+}
+
+
+
 // Generate unique ID
 function generateID() {
     return Math.floor(Math.random() * 100000000);

@@ -18,28 +18,41 @@
         </div>
         <div class="balance" id="balance">Current Balance: ₹0</div>
 
-        <div class="form-control">
+        <form class="form-control" action="/add-transaction" method="post">
             <label for="description">Description</label>
-            <input type="text" id="description" placeholder="Enter description" maxlength="50" required>
+            <input type="text" id="description" name="description" placeholder="Enter description" maxlength="50"
+                required>
 
             <label for="amount">Amount</label>
-            <input type="number" id="amount" placeholder="Enter amount" max="100000" required>
+            <input type="number" id="amount" name="amount" placeholder="Enter amount" max="100000" required>
 
-            <label for="date-time">Date & Time</label>
-            <input type="datetime-local" id="date-time" required>
+            <div class="try">
+                <div>
+                    <label for="date-time">Date & Time</label>
+                    <input type="datetime-local" id="date-time" name="date" required>
+                </div>
+                <div>
+                    <label for="category">Type</label>
+                    <select id="category" name="category" required>
+                        <option value="UPI">UPI</option>
+                        <option value="CASH">CASH</option>
+                    </select>
+                </div>
+            </div>
 
-            <label for="category">Type</label>
-            <select id="category" required>
-                <option value="UPI">UPI</option>
-                <option value="CASH ">CASH</option>
-            </select>
+            <!-- Hidden input to set transaction type -->
+            <input type="hidden" id="transaction-type" name="transactionType">
 
             <div class="btn-container">
-                <button class="btn deposit-btn" id="add-deposit">+</button>
-                <button class="btn withdraw-btn" id="add-withdraw">-</button>
+                <button class="btn deposit-btn" type="button" id="add-deposit"
+                    onclick="setTransactionType('Deposit')">+</button>
+                <button class="btn withdraw-btn" type="button" id="add-withdraw"
+                    onclick="setTransactionType('Withdraw')">-</button>
             </div>
-        </div>
-        <button class="history-btn" onclick="window.location.href='history.html'">View History</button>
+        </form>
+
+
+        <button class="history-btn" onclick="window.location.href='/history'">View History</button>
         <h6>by MiDiORA</h6>
     </div>
     <script src="scripts/script.js"></script>
