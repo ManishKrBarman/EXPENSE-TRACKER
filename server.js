@@ -10,7 +10,7 @@ const app = express();
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the Angular app [maintains the styles and scripts]
 app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
-
+app.use(express.json()); // Middleware to parse JSON
 
 // Routes
 app.get('/', (req, res) => {
@@ -53,9 +53,13 @@ app.post('/add-transaction', async (req, res) => {
         editCount: 0,
     });
 
-    await transaction.save();
-    console.log('Transaction Saved:', transaction);
-    res.sendStatus(200);
+    try {
+        await transaction.save();
+        res.status(200).json({ message: 'Transaction added successfully!' });
+    } catch (error) {
+        console.error('Error saving transaction:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
 });
 
 
