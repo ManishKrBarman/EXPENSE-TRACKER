@@ -21,33 +21,24 @@
         <div class="form-control">
             <label for="description">Description</label>
             <input type="text" id="description" placeholder="Enter description" maxlength="50" required>
-        </div>
 
-        <div class="form-control">
             <label for="amount">Amount</label>
             <input type="number" id="amount" placeholder="Enter amount" max="100000" required>
-        </div>
 
-        <div class="try">
-            <div class="form-control time">
-                <label for="date-time">Date & Time</label>
-                <input type="datetime-local" id="date-time" required>
+            <label for="date-time">Date & Time</label>
+            <input type="datetime-local" id="date-time" required>
+
+            <label for="category">Type</label>
+            <select id="category" required>
+                <option value="UPI">UPI</option>
+                <option value="CASH ">CASH</option>
+            </select>
+
+            <div class="btn-container">
+                <button class="btn deposit-btn" id="add-deposit">+</button>
+                <button class="btn withdraw-btn" id="add-withdraw">-</button>
             </div>
-
-            <div class="form-control category">
-                <label for="category">Type</label>
-                <select id="category" required>
-                    <option value="UPI">UPI</option>
-                    <option value="CASH ">CASH</option>
-                </select>
-            </div>
         </div>
-
-        <div class="btn-container">
-            <button class="btn deposit-btn" id="add-deposit">+</button>
-            <button class="btn withdraw-btn" id="add-withdraw">-</button>
-        </div>
-
         <button class="history-btn" onclick="window.location.href='history.html'">View History</button>
         <h6>by MiDiORA</h6>
     </div>
