@@ -52,6 +52,7 @@ function displayTransactions(filteredTransactions = null) {
     });
 }
 
+
 // Filter transactions between two dates
 function filterTransactionsByDateRange() {
     const startDate = new Date(startDateInput.value);
@@ -69,8 +70,10 @@ function filterTransactionsByDateRange() {
     displayTransactions(filteredTransactions);
 }
 
+
 // Event listener for search button
 filterBtn.addEventListener('click', filterTransactionsByDateRange);
+
 
 // Show toast message
 function showToast(message, type = 'positive') {
@@ -85,6 +88,7 @@ function showToast(message, type = 'positive') {
     }, 3000);
 }
 
+
 // Add a transaction (for demo purposes)
 function addTransaction(amount, description) {
     const newTransaction = {
@@ -97,6 +101,7 @@ function addTransaction(amount, description) {
     displayTransactions();
     showToast(`₹${Math.abs(amount)} ${amount > 0 ? 'added' : 'deducted'} successfully`, amount > 0 ? 'positive' : 'negative');
 }
+
 
 // Initial display of transactions
 displayTransactions();
