@@ -2,7 +2,10 @@ const historyList = document.getElementById('history-list');
 const filterBtn = document.getElementById('filter-btn');
 const startDateInput = document.getElementById('start-date');
 const endDateInput = document.getElementById('end-date');
+
+
 const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
 
 // Function to sort and display transactions
 function displayTransactions(filteredTransactions = null) {
@@ -39,6 +42,7 @@ function displayTransactions(filteredTransactions = null) {
             transactionItem.innerHTML = `
             <strong>₹${Math.abs(transaction.amount)}</strong>
             <span>${transaction.date.split('T')[1]}</span>
+            <span>${transaction.category}</span>
             ${transaction.amount > 0 ? '🟢' : '🔴'} ${transaction.description}
             `;
             dayCard.appendChild(transactionItem);
