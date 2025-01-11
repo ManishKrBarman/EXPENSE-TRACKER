@@ -10,16 +10,6 @@ const app = express();
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the Angular app [maintains the styles and scripts]
 app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
-app.use(express.json()); // Middleware to parse JSON
-
-// Routes
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-app.get('/history', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/history.html'));
-});
 
 
 // Connect to MongoDB
@@ -38,6 +28,16 @@ const Transaction = new mongoose.Schema({
 });
 
 const TransactionModel = mongoose.model('Transaction', Transaction);
+
+
+// Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/history', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/history.html'));
+});
 
 app.post('/add-transaction', async (req, res) => {
     const { description, amount, date, category, transactionType } = req.body;
@@ -58,10 +58,9 @@ app.post('/add-transaction', async (req, res) => {
         res.status(200).json({ message: 'Transaction added successfully!' });
     } catch (error) {
         console.error('Error saving transaction:', error);
-        res.status(500).json({ message: 'Internal server error.' });
+        res.status(404).json({ message: 'Internal server error.' });
     }
 });
-
 
 
 // Server listening
