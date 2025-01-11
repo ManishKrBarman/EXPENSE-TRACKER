@@ -8,7 +8,7 @@ const app = express();
 
 
 // Middleware
-app.use(express.static(path.join(__dirname)));  // Serve static files from the Angular app [maintains the styles and scripts]
+app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the Angular app [maintains the styles and scripts]
 app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
 
 
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/history', (req, res) => {
-    res.sendFile(path.join(__dirname, 'history.html'));
+    res.sendFile(path.join(__dirname, '/public/history.html'));
 });
 
 
