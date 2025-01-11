@@ -26,6 +26,7 @@ function addTransaction(type) {
     const description = descriptionInput.value.trim();
     const amount = +amountInput.value;
     const dateTime = dateTimeInput.value;
+    const category = categorySelect.value;
 
 
     if (!description) {
@@ -46,6 +47,7 @@ function addTransaction(type) {
         description,
         amount: type === 'deposit' ? amount : -amount,
         date: dateTime,
+        category,
         editCount: 0
     };
 
@@ -67,12 +69,6 @@ function addTransaction(type) {
 // Generate unique ID
 function generateID() {
     return Math.floor(Math.random() * 100000000);
-}
-
-
-// Update local storage function
-function updateLocalStorage() {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
 
@@ -103,6 +99,13 @@ function showToast(message, type = 'positive') {
         toast.style.display = 'none';
     }, 3000);
 }
+
+
+// Update local storage function
+function updateLocalStorage() {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
 
 updateBalance();
 
