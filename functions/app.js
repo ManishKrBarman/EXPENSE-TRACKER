@@ -1,10 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-
+const serverless = require('serverless-http');
 
 const port = 3000;
 const app = express();
+const router = express.Router();
+
+
+router.get("/", (req, res) => {
+    res.send("App is running..");
+});
+
+app.use("/.netlify/functions/app", router);
+module.exports.handler = serverless(app);
 
 
 // Middleware
