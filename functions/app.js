@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const serverless = require('serverless-http');
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 const router = express.Router();
 
@@ -22,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/expenser');
+mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
 db.once('open', () => {
     console.log('Connected to MongoDB');
